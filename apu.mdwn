@@ -4,20 +4,22 @@
 
 # PHP
 
-"I've never thought of PHP as more than a simple tool to solve problems." (Rasmus Lerdorf)
+<http://php.net>
 
-## PHP:n ongelmat
+# PHP:n ongelmat
+
+PHP ei ole kaikkein elegantein suunniteltu ohjelmointikieli.
 
 <http://me.veekun.com/blog/2012/04/09/php-a-fractal-of-bad-design>
 
-## PHP perusteet
+# PHP perusteet
 
 - PHP.net on ystävä:
   <http://www.php.net>
 - Aina löytyy valmis funktio
 - Monet Javasta tutut toimintamallit toimivat
 
-### Syntaksi
+## Syntaksi
 
 - Aloitus- ja lopetustagit:
   `<?php` ja `?>`
@@ -28,7 +30,7 @@
     - ja muutama hassu tyyppi
 - Taikamuuttujat (superglobals)
 
-### Array
+## Array
 
 ```php
 <?php
@@ -41,7 +43,7 @@ echo $muuttuja["yksi"];
 ?>
 ```
 
-### Oliot
+## Oliot
 
 ```php
 <?php
@@ -62,12 +64,33 @@ $olio->sano();
 ?>
 ```
 
-### Taikamuuttujat
+Konstruktorin parina on toki `____destruct`.
+
+## Taikamuuttujat
+
+Eivät vaadi `global` avainsanan käyttöä.
 
 - `$_GET`
 - `$_POST`
 - `$_COOKIE`
-- `$_SERVER`
+- ...
 
-<!--
--->
+## Koodin sisällyttäminen
+
+komento         tekee
+-------         -----
+`include`       Vähän ku `import`
+`require`       Heittää virheen jossei onnistu
+`include_once`  Tarkistaa, ettei tule tehtyä kahdesti
+`require_once`  Sama
+
+Valitse aina `require_once`
+
+## Goto
+
+PHP:ssä on `goto` operaattori.
+
+## Funktiot
+
+- Tukee parametrien oletusarvoja
+- Ihan posketon määrä sisäänrakennettuja funktioita.
