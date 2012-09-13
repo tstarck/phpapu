@@ -9,3 +9,5 @@ index.html: apu.mdwn
 
 pp.html: apu.mdwn
 	$(PAN) -s -t slidy $^ > apu.html
+
+.PHONY: index.html pp.html
