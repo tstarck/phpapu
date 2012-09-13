@@ -1,0 +1,73 @@
+% PHP
+% Tuomas Starck
+% 2012/I
+
+# PHP
+
+"I've never thought of PHP as more than a simple tool to solve problems." (Rasmus Lerdorf)
+
+## PHP:n ongelmat
+
+<http://me.veekun.com/blog/2012/04/09/php-a-fractal-of-bad-design>
+
+## PHP perusteet
+
+- PHP.net on ystävä:
+  <http://www.php.net>
+- Aina löytyy valmis funktio
+- Monet Javasta tutut toimintamallit toimivat
+
+### Syntaksi
+
+- Aloitus- ja lopetustagit:
+  `<?php` ja `?>`
+- Kommentit: `// ` ja `/* */`
+- Dynaaminen tyypitys.
+    - boolean, integet, float, string
+    - array, object
+    - ja muutama hassu tyyppi
+- Taikamuuttujat (superglobals)
+
+### Array
+
+```php
+<?php
+$muuttuja = array(
+    "yksi"  => 1,
+    "kaksi" => 2
+);
+
+echo $muuttuja["yksi"];
+?>
+```
+
+### Oliot
+
+```php
+<?php
+class KUKKA {
+  private $sana;
+
+  function __construct() {
+    $this->sana = "Neilikka";
+  }
+
+  public function sano() {
+    echo $this->sana."\n";
+  }
+}
+
+$olio = new KUKKA;
+$olio->sano();
+?>
+```
+
+### Taikamuuttujat
+
+- `$_GET`
+- `$_POST`
+- `$_COOKIE`
+- `$_SERVER`
+
+<!--
+-->
