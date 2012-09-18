@@ -9,3 +9,7 @@ h2 { text-decoration: underline; }
 pre { border: 1px solid grey; padding: 0.5em 0.5em 0.5em 0.5em; }
 
 li > code { border: solid 1px #ccc; background-color: #eee; font-weight: bold; }
+
+table { border-collapse: collapse; }
+thead th { border-bottom: solid 1px gray; }
+tr > td { padding-right: 1em; }
