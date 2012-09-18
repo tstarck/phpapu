@@ -2,12 +2,12 @@
 
 PAN=/usr/bin/pandoc
 
-all: index.html pp.html
+all: index.html slidy.html
 
 index.html: apu.mdwn
-	$(PAN) -s -t html5 --toc -c tyyli.css $^ > index.html
+	$(PAN) -s -t html5 --toc -c tyyli.css $^ > $@
 
-pp.html: apu.mdwn
-	$(PAN) -s -t slidy $^ > apu.html
+slidy.html: apu.mdwn
+	$(PAN) -s -t slidy $^ > $@
 
-.PHONY: index.html pp.html
+.PHONY: index.html slidy.html
