@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Tuomas Starck">
+  <title>PHP</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="tyyli.css">
+</head>
+<body>
+<header>
+<h1 class="title">PHP</h1>
+<h2 class="author">Tuomas Starck</h2>
+<h3 class="date">2012/I</h3>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#php">PHP</a></li>
+<li><a href="#kielen-suunnittelu">Kielen suunnittelu</a></li>
+<li><a href="#perusteet">Perusteet</a></li>
+<li><a href="#syntaksi">Syntaksi</a></li>
+<li><a href="#tagit">Tagit</a></li>
+<li><a href="#array">Array</a></li>
+<li><a href="#oliot">Oliot</a></li>
+<li><a href="#taikamuuttujat">Taikamuuttujat</a></li>
+<li><a href="#koodin-sisällyttäminen">Koodin sisällyttäminen</a></li>
+<li><a href="#goto">Goto</a></li>
+<li><a href="#funktiot">Funktiot</a></li>
+<li><a href="#kapselointi-ja-jako">Kapselointi ja jako</a></li>
+<li><a href="#debugaus">Debugaus</a></li>
+</ul>
+</nav>
+<h1 id="php"><a href="#TOC">PHP</a></h1>
+<ul>
+<li>Imperatiivinen</li>
+<li>Dynaamisesti tyypitetty</li>
+<li>Tukee olioita
+<ul>
+<li>ei pakota olio-ohjelmointiin</li>
+</ul></li>
+</ul>
+<h1 id="kielen-suunnittelu"><a href="#TOC">Kielen suunnittelu</a></h1>
+<p><em>PHP ei ole ohjelmointikielistä elegantein</em></p>
+<p><a href="http://me.veekun.com/blog/2012/04/09/php-a-fractal-of-bad-design">PHP: a fractal of bad design</a></p>
+<p>Mutta tsohan kannalta tämä ei ole kriittistä, sillä pienessä projektissa tuskin törmää kaikkein pahimpiin ongelmiin</p>
+<h1 id="perusteet"><a href="#TOC">Perusteet</a></h1>
+<ul>
+<li><a href="http://fi2.php.net">PHP on hyvin dokumentoitu</a></li>
+<li><strong>Aina</strong> löytyy valmis funktio</li>
+<li>Monet Javasta tutut toimintamallit toimivat
+<ul>
+<li>oliotsuunnittelu on ok</li>
+</ul></li>
+</ul>
+<h1 id="syntaksi"><a href="#TOC">Syntaksi</a></h1>
+<ul>
+<li>Aloitus- ja lopetustagit: <code>&lt;?php</code> ja <code>?&gt;</code></li>
+<li>Kommentit: <code>//</code> ja <code>/* */</code></li>
+<li>Dynaaminen tyypitys:
+<ul>
+<li>boolean, integet, float, string</li>
+<li>array, object</li>
+<li>ja muutama hassu tyyppi</li>
+</ul></li>
+<li>Taikamuuttujat (superglobals)</li>
+</ul>
+<h1 id="tagit"><a href="#TOC">Tagit</a></h1>
+<p>PHP-tulkki ei suorita koodia, joka ei ole <strong>php</strong>-kooditagin sisällä</p>
+<pre class="sourceCode php"><code class="sourceCode php">Tämä ei ole koodia.
+
+<span class="kw">&lt;?php</span>
+<span class="fu">echo</span> <span class="st">&quot;Tämä koodi suoritetaan.&quot;</span><span class="ot">;</span>
+<span class="kw">?&gt;</span>
+
+Jälleen pelkkää tekstiä.</code></pre>
+<p>Kooditagien ulkopuolinen teksti lähetetään selaimelle sellaisenaan</p>
+<h1 id="array"><a href="#TOC">Array</a></h1>
+<ul>
+<li>Eli assosiatiivinen taulukko</li>
+<li>Toimittaa <em>listan</em>, <em>taulukon</em>, <em>settien</em> yms virkaa</li>
+<li>Avain luodaan tarvittaessa</li>
+</ul>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?php</span>
+<span class="kw">$muuttuja</span> = <span class="fu">array</span><span class="ot">(</span>
+    <span class="st">&quot;yksi&quot;</span>  =&gt; <span class="dv">1</span><span class="ot">,</span>
+    <span class="st">&quot;kaksi&quot;</span> =&gt; <span class="dv">2</span>
+<span class="ot">);</span>
+
+<span class="kw">$toinen</span> = <span class="fu">array</span><span class="ot">(</span><span class="st">&quot;ruusu&quot;</span><span class="ot">,</span> <span class="st">&quot;tulppaani&quot;</span><span class="ot">);</span>
+
+<span class="fu">echo</span> <span class="kw">$muuttuja</span><span class="ot">[</span><span class="st">&quot;yksi&quot;</span><span class="ot">];</span> <span class="co">// -&gt; 1</span>
+
+<span class="fu">echo</span> <span class="kw">$toinen</span><span class="ot">[</span><span class="dv">1</span><span class="ot">];</span>        <span class="co">// -&gt; tulppaani</span>
+<span class="kw">?&gt;</span></code></pre>
+<h1 id="oliot"><a href="#TOC">Oliot</a></h1>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?php</span>
+<span class="kw">class</span> <span class="kw">KUKKA</span> {
+  <span class="kw">private</span> <span class="kw">$sana</span><span class="ot">;</span>
+
+  <span class="kw">function</span> <span class="fu">__construct</span><span class="ot">()</span> {
+    <span class="kw">$this</span>-&gt;sana = <span class="st">&quot;neilikka&quot;</span><span class="ot">;</span>
+  }
+
+  <span class="kw">public</span> <span class="kw">function</span> sano<span class="ot">()</span> {
+    <span class="fu">echo</span> <span class="kw">$this</span>-&gt;sana<span class="ot">;</span>
+  }
+}
+
+<span class="kw">$olio</span> = <span class="kw">new</span> <span class="kw">KUKKA</span><span class="ot">;</span>
+<span class="kw">$olio</span>-&gt;sano<span class="ot">();</span>      <span class="co">// tulostaa: neilikka</span>
+<span class="kw">?&gt;</span></code></pre>
+<p>Konstruktorin parina on toki <code>__destruct</code></p>
+<h1 id="taikamuuttujat"><a href="#TOC">Taikamuuttujat</a></h1>
+<p>Eivät vaadi <code>global</code> avainsanan käyttöä</p>
+<p>Kaikki käyttäjältä tuleva tieto on avain/arvo-pareja, jotka saadaan indeksoimalla seuraavia muuttujia:</p>
+<ul>
+<li><code>$_GET</code>
+<ul>
+<li>osoiterivin tiedot</li>
+</ul></li>
+<li><code>$_POST</code>
+<ul>
+<li>lomakkeesta lähetetyt tiedot</li>
+</ul></li>
+<li><code>$_COOKIE</code>
+<ul>
+<li>evästeiden tiedot</li>
+</ul></li>
+</ul>
+<h1 id="koodin-sisällyttäminen"><a href="#TOC">Koodin sisällyttäminen</a></h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">komento</th>
+<th style="text-align: left;">tekee</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>include</code></td>
+<td style="text-align: left;">Vähän ku <code>import</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>require</code></td>
+<td style="text-align: left;">Heittää virheen jossei onnistu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>include_once</code></td>
+<td style="text-align: left;">Tarkistaa, ettei tule tehtyä kahdesti</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>require_once</code></td>
+<td style="text-align: left;">Samoin</td>
+</tr>
+</tbody>
+</table>
+<p>Valitse aina <code>require_once</code></p>
+<h1 id="goto"><a href="#TOC">Goto</a></h1>
+<p>PHP:ssä on <code>goto</code> operaattori. Älä käytä.</p>
+<h1 id="funktiot"><a href="#TOC">Funktiot</a></h1>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?php</span>
+<span class="kw">function</span> fn_nimi<span class="ot">(</span><span class="kw">$arg1</span><span class="ot">,</span> <span class="kw">$arg2</span><span class="ot">,</span> <span class="kw">$arg3</span>=<span class="st">&quot;oletus&quot;</span><span class="ot">)</span> {
+  <span class="kw">return</span> <span class="kw">$arg1</span>.<span class="kw">$arg2</span>.<span class="kw">$arg3</span><span class="ot">;</span>
+}
+
+<span class="fu">echo</span> fn_nimi<span class="ot">(</span><span class="st">&quot;Tämä &quot;</span><span class="ot">,</span> <span class="st">&quot;on &quot;</span><span class="ot">);</span>  <span class="co">// tulostaa: Tämä on oletus</span>
+<span class="kw">?&gt;</span></code></pre>
+<ul>
+<li>Tukee parametrien oletusarvoja</li>
+<li>Paluutyypit dynaamisia</li>
+<li>Aivan posketon määrä sisäänrakennettuja funktioita
+<ul>
+<li><code>mysql_escape_string</code> / <code>mysql_real_escape_string</code></li>
+<li><code>gzgetss</code></li>
+<li>...</li>
+</ul></li>
+</ul>
+<h1 id="kapselointi-ja-jako"><a href="#TOC">Kapselointi ja jako</a></h1>
+<p>Eri kielien vallaton sekoittaminen saa aikaan kaoottisen sopan</p>
+<p>Tapoja <em>kapseloida</em> ja <em>ositella</em> koodia:</p>
+<ul>
+<li>luokat</li>
+<li>ketjutus</li>
+<li>templaatit</li>
+<li>staattiset tiedostot</li>
+</ul>
+<h1 id="debugaus"><a href="#TOC">Debugaus</a></h1>
+<ul>
+<li><a href="http://php.net/manual/en/function.var-dump.php">var_dump()</a>
+<ul>
+<li>tulostaa mielivaltaisen muuttujan sisällön</li>
+</ul></li>
+<li><a href="http://php.net/manual/en/function.error-log.php">error_log()</a>
+<ul>
+<li>tulostaa virheviestin logiin</li>
+</ul></li>
+</ul>
+</body>
+</html>
