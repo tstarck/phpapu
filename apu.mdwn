@@ -2,24 +2,31 @@
 % Tuomas Starck
 % 2012/I
 
+[php]:     http://fi2.php.net
+[fractal]: http://me.veekun.com/blog/2012/04/09/php-a-fractal-of-bad-design
+
 # PHP
 
-<http://php.net>
+- Imperatiivinen
+- Dynaamisesti tyypitetty
+- Tukee olioita
+    + ei pakota olio-ohjelmointiin
 
-# PHP:n ongelmat
+# Kielen suunnittelu
 
-PHP ei ole kaikkein elegantein suunniteltu ohjelmointikieli.
+*PHP ei ole ohjelmointikielistä elegantein*
 
-<http://me.veekun.com/blog/2012/04/09/php-a-fractal-of-bad-design>
+[PHP: a fractal of bad design][fractal]
 
-# PHP perusteet
+Mutta tsohan kannalta tämä ei ole kriittistä, sillä pienessä
+projektissa tuskin törmää kaikkein pahimpiin ongelmiin
 
-- PHP.net on ystävä:
-  <http://www.php.net>
-- Aina löytyy valmis funktio
+# Perusteet
+
+- [PHP on hyvin dokumentoitu][php]
+- **Aina** löytyy valmis funktio
 - Monet Javasta tutut toimintamallit toimivat
-    - imperatiivisuus
-    - oliot
+    + oliotsuunnittelu on ok
 
 # Syntaksi
 
@@ -32,7 +39,27 @@ PHP ei ole kaikkein elegantein suunniteltu ohjelmointikieli.
     - ja muutama hassu tyyppi
 - Taikamuuttujat (superglobals)
 
+# Tagit
+
+PHP-tulkki ei suorita koodia, joka ei ole **php**-kooditagin sisällä
+
+```php
+Tämä ei ole koodia.
+
+<?php
+echo "Tämä koodi suoritetaan.";
+?>
+
+Jälleen pelkkää tekstiä.
+```
+
+Kooditagien ulkopuolinen teksti lähetetään selaimelle sellaisenaan
+
 # Array
+
+- Eli assosiatiivinen taulukko
+- Toimittaa *listan*, *taulukon*, *settien* yms virkaa
+- Avain luodaan tarvittaessa
 
 ```php
 <?php
@@ -41,7 +68,11 @@ $muuttuja = array(
     "kaksi" => 2
 );
 
-echo $muuttuja["yksi"];
+$toinen = array("ruusu", "tulppaani");
+
+echo $muuttuja["yksi"]; // -> 1
+
+echo $toinen[1];        // -> tulppaani
 ?>
 ```
 
@@ -53,16 +84,16 @@ class KUKKA {
   private $sana;
 
   function __construct() {
-    $this->sana = "Neilikka";
+    $this->sana = "neilikka";
   }
 
   public function sano() {
-    echo $this->sana."\n";
+    echo $this->sana;
   }
 }
 
 $olio = new KUKKA;
-$olio->sano();
+$olio->sano();      // tulostaa: neilikka
 ?>
 ```
 
@@ -72,10 +103,15 @@ Konstruktorin parina on toki `__destruct`
 
 Eivät vaadi `global` avainsanan käyttöä
 
+Kaikki käyttäjältä tuleva tieto on avain/arvo-pareja,
+jotka saadaan indeksoimalla seuraavia muuttujia:
+
 - `$_GET`
+    + osoiterivin tiedot
 - `$_POST`
+    + lomakkeesta lähetetyt tiedot
 - `$_COOKIE`
-- ...
+    + evästeiden tiedot
 
 # Koodin sisällyttäminen
 
@@ -84,24 +120,47 @@ komento         tekee
 `include`       Vähän ku `import`
 `require`       Heittää virheen jossei onnistu
 `include_once`  Tarkistaa, ettei tule tehtyä kahdesti
-`require_once`  Sama
+`require_once`  Samoin
 
 Valitse aina `require_once`
 
 # Goto
 
-PHP:ssä on `goto` operaattori.
+PHP:ssä on `goto` operaattori. Älä käytä.
 
 # Funktiot
 
 ```php
 <?php
-function nimike($arg1, $arg2, $arg3="oletus") {
-  ...
-  return $jotain;
+function fn_nimi($arg1, $arg2, $arg3="oletus") {
+  return $arg1.$arg2.$arg3;
 }
+
+echo fn_nimi("Tämä ", "on ");  // tulostaa: Tämä on oletus
 ?>
 ```
 
 - Tukee parametrien oletusarvoja
+- Paluutyypit dynaamisia
 - Aivan posketon määrä sisäänrakennettuja funktioita
+    - `mysql_escape_string` / `mysql_real_escape_string`
+    - `gzgetss`
+    - ...
+
+# Kapselointi ja jako
+
+Eri kielien vallaton sekoittaminen saa aikaan kaoottisen sopan
+
+Tapoja *kapseloida* ja *ositella* koodia:
+
+- luokat
+- ketjutus
+- templaatit
+- staattiset tiedostot
+
+# Debugaus
+
+- [var\_dump()](http://php.net/manual/en/function.var-dump.php)
+    + tulostaa mielivaltaisen muuttujan sisällön
+- [error\_log()](http://php.net/manual/en/function.error-log.php)
+    + tulostaa virheviestin logiin
